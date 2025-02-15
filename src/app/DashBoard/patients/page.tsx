@@ -17,12 +17,13 @@ const Patients = () => {
     const fetchPatients = async () => {
       try {
         const token = localStorage.getItem('token'); // Assuming the token is stored in localStorage
-        const response = await axios.get("http://127.0.0.1:5000/getPatients", {
+        const response = await axios.get("http://localhost:8000/api/patients", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
         setPatientsList(response.data);
+        // console.log(response.data);
       } catch (error) {
         console.error("Error fetching patients:", error);
       }
@@ -38,7 +39,7 @@ const Patients = () => {
   return (
     <div className="min-h-screen flex flex-col items-center bg-white p-6">
       <h1 className="text-3xl font-bold text-red-600 mb-4">My Patients</h1>
-      <p className="text-gray-700 mb-6">View and manage your patients' records.</p>
+      <p className="text-gray-700 mb-6">View and manage your patients records.</p>
 
       {/* Search Bar */}
       <div className="relative w-full max-w-md mb-6">

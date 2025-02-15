@@ -26,7 +26,7 @@ export default function StartScan() {
     formData.append("image", selectedFile);
 
     try {
-      const response = await axios.post("http://127.0.0.1:5000/predict", formData, {
+      const response = await axios.post("http://localhost:8000/api/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

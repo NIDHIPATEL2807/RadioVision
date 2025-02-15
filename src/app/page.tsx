@@ -1,14 +1,8 @@
-import { redirect } from 'next/navigation'
-import { auth } from '@clerk/nextjs/server'
+import Image from "next/image";
+import Home from '../components/Landing/Home'
 
-export default async function Home() {
-  const { userId } = await auth();
-  if(userId) {
-    redirect('/dashboard');
-  }
+export default function Page() {
   return (
-    <div className="flex items-center justify-center h-full">
-      <div className="text-2xl">Home Page</div>
-    </div>
+    <Home/>
   );
 }

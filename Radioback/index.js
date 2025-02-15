@@ -11,7 +11,7 @@ import { uploadImage } from './controllers/uploadImage.js';
 import { getPatients } from './controllers/getPatient.js';
 import { createPatient } from './controllers/createpatient.js';
 import { getPatientsImages } from './controllers/getPatientsImages.js';
-
+import { addPatientId } from './controllers/addPatientId.js';
 
 const app = express();
 const port = process.env.PORT || 3000;

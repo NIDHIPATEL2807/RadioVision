@@ -1,5 +1,5 @@
-import Patient from "../model/Patient.model";
-import PatientDoc from "../model/PatientDoc.model";
+import Patient from "../model/Patient.model.js";
+import PatientDoc from "../model/PatientDoc.model.js";
 
 export const addPatientId = async (req, res) => {
     try{

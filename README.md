@@ -1,36 +1,12 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# RadioVision
 
-## Getting Started
+It is a AI powered website which helps radiologists and healthcare professionals analyze medical images such as X-rays, MRIs and CT scans to detect anomalies and classify medical conditions.
 
-First, run the development server:
+In this website , the doctor will login using his credentials , then he will have two options add patient , patient history list , and analyze images. 
+So the doctor can view different patients history and past ai analysis and his own remarks about the different cases of patient if there. He can also add new patient if new time patient and such , also directly do ai image analysis , and then if he wants to lik that analysis to  a past patient or a new on e, or discard it (so that doctors can use the app without hesitation), hence this feature of analysis should not be protected , I want doctprs to firs test and then decide if they want to login, thus enhancing user experience.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# Tech Stack :
+I will be using Nextjs , flask for ml integration , clerk for auth , superbase for database, deploy optional , swagger for api doc, ml will be using one api made by my friend so dont think about this , payload for thsi api that is for analyse is sending medical image, we will get a labeled image and optional text diagnosis along with it , then doctor will put his own remark about it , and that is the patietn model i was talking about , and it will be stored.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

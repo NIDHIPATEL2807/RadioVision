@@ -1,3 +1,5 @@
+import Patient from "../model/Patient.model.js";
+
 export const createPatient = async (req, res) => {
     try {
         const { name, age, gender, phone } = req.body;
@@ -10,7 +12,7 @@ export const createPatient = async (req, res) => {
         }
 
         // 🔹 Check if the patient already exists
-        const existingPatient = await Patient.findOne({ email });
+        const existingPatient = await Patient.findOne({ phone });
         if (existingPatient) {
             return res.status(400).json({ message: "Patient already exists" });
         }

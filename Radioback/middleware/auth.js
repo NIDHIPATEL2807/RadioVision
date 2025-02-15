@@ -7,7 +7,6 @@ export const auth = async (req, res, next) => {
         if(!token){
             return res.status(400).json({message:"Token not found"});
         }
-
         const decoded = jwt.verify(token,process.env.JWT_SECRET);
         req.user = decoded;
         next();

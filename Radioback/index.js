@@ -2,10 +2,13 @@ import dotenv from 'dotenv';
 dotenv.config()
 import express from 'express';
 import { urlencoded } from 'express';
-import { connectDB } from './database.js';
+import { connectDB } from './config/database.js';
 import cors from 'cors';
 import { register } from './controllers/register.js';
 import { login } from './controllers/login.js';
+import { createPatient } from './controllers/createPatient.js';
+import { auth } from './middleware/auth.js';
+import { uploadImage } from './controllers/uploadImage.js';
 
 
 
@@ -29,23 +32,13 @@ app.listen(port,()=>{
 // making api here only cause why should i work huh 
 // love you hitesh
 
-app.post('/api/signup',async(req,res)=>{
-    try{
-        await register(req,res);
-    }
-    catch(err){
-        console.log(err);
-    }
-})
+app.post('/api/signup',register)
 
-app.post('/api/login',async(req,res)=>{
-    try{
-        await login(req,res);
-    }
-    catch(err){
-        console.log(err);
-    }
-})
+app.post('/api/login',login)
+
+app.post('/api/upload',uploadImage);
+
+app.post("/api/patients/create", auth, createPatient);
 
 
 

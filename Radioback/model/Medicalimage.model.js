@@ -6,18 +6,18 @@ const MedicalImageSchema = mongoose.Schema({
         required: true,
     },
     processed_url:{
-        type: String,
+        type: Object,
         // required: true
     },
     patient_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Patient',
-        required: true
+    
     },
     doctor_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        required: true
+
     },
     description: {
         type: String,

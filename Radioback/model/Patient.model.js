@@ -31,11 +31,6 @@ const patientSchema = new mongoose.Schema({
         ref: 'User',
         required: true
     },
-    medical_image_id:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'MedicalImage',
-        required: true,
-    }
 },{ timestamps: true });
  
 const Patient = mongoose.model('Patient', patientSchema);

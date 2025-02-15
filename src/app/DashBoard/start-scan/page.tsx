@@ -2,33 +2,43 @@
 
 import { useState } from "react";
 import { UploadCloud } from "lucide-react";
+import axios from "axios";
 
 export default function StartScan() {
-  const [selectedFile, setSelectedFile] = useState<string | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [aiAnalysis, setAiAnalysis] = useState<{
-    diagnosis: string;
-    confidence: string;
-    highlightedAreas: string;
+    disease: string;
+    probability: number;
   } | null>(null);
   const [doctorNotes, setDoctorNotes] = useState("");
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      const fileUrl = URL.createObjectURL(file);
-      setSelectedFile((prev) => {
-        if (prev) URL.revokeObjectURL(prev); // Cleanup old URL
-        return fileUrl;
-      });
+      setSelectedFile(file);
     }
   };
 
-  const handleAnalyze = () => {
-    setAiAnalysis({
-      diagnosis: "Possible fracture detected.",
-      confidence: "85%",
-      highlightedAreas: "Red overlay on affected regions.",
-    });
+  const handleAnalyze = async () => {
+    if (!selectedFile) return;
+
+    const formData = new FormData();
+    formData.append("image", selectedFile);
+
+    try {
+      const response = await axios.post("http://127.0.0.1:5000/predict", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      setAiAnalysis({
+        disease: response.data.disease,
+        probability: response.data.probability,
+      });
+    } catch (error) {
+      console.error("Error analyzing the scan:", error);
+    }
   };
 
   return (
@@ -40,7 +50,7 @@ export default function StartScan() {
           <span className="text-gray-500">Click to upload or drag and drop</span>
           <input type="file" className="hidden" onChange={handleFileChange} />
         </label>
-        {selectedFile && <img src={selectedFile} alt="Uploaded Scan" className="max-w-full h-auto mt-4" />}
+        {selectedFile && <img src={URL.createObjectURL(selectedFile)} alt="Uploaded Scan" className="max-w-full h-auto mt-4" />}
         <button 
           onClick={handleAnalyze} 
           disabled={!selectedFile} 
@@ -50,9 +60,8 @@ export default function StartScan() {
         {aiAnalysis && (
           <div className="p-4 border rounded-lg bg-gray-100 mt-4">
             <h3 className="font-semibold">AI Analysis</h3>
-            <p><strong>Diagnosis:</strong> {aiAnalysis.diagnosis}</p>
-            <p><strong>Confidence:</strong> {aiAnalysis.confidence}</p>
-            <p><strong>Highlighted Areas:</strong> {aiAnalysis.highlightedAreas}</p>
+            <p><strong>Disease:</strong> {aiAnalysis.disease}</p>
+            <p><strong>Probability:</strong> {aiAnalysis.probability.toFixed(2)}%</p>
           </div>
         )}
         <textarea

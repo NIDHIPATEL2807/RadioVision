@@ -1,4 +1,4 @@
-// src/api/clerk-webhook/route.ts
+// src/app/api/clerk-webhook/route.ts
 import { NextResponse } from 'next/server';
 import { supabase } from '@/app/superBase'; 
 
@@ -50,3 +50,5 @@ export async function POST(request: Request) {
     );
   }
 }
+
+    

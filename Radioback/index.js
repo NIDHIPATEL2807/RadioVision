@@ -8,8 +8,9 @@ import { register } from './controllers/register.js';
 import { login } from './controllers/login.js';
 import { auth } from './middleware/auth.js';
 import { uploadImage } from './controllers/uploadImage.js';
-import { createPatient } from './controllers/createPatient.js';
-
+import { getPatients } from './controllers/getPatient.js';
+import { createPatient } from './controllers/createpatient.js';
+import { getPatientsImages } from './controllers/getPatientsImages.js';
 
 
 const app = express();
@@ -38,6 +39,10 @@ app.post('/api/login',login)
 app.post('/api/upload',uploadImage);
 
 app.post("/api/patients/create", auth, createPatient);
+
+app.get("/api/patients", auth, getPatients);
+
+app.get("/api/patients/:id", auth, getPatientsImages);
 
 
 

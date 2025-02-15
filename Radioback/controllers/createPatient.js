@@ -1,13 +1,11 @@
-import Patient from "../model/Patient.model.js";
-
 export const createPatient = async (req, res) => {
     try {
-        const { name, dob, gender, phone } = req.body;
+        const { name, age, gender, phone } = req.body;
 
         // 🔹 Ensure the authenticated user (doctor) is creating the patient
         const doctor_id = req.user.id; // Extracted from JWT authentication
 
-        if (!name || !email || !password || !dob || !gender || !phone) {
+        if (!name || !age || !gender || !phone) {
             return res.status(400).json({ message: "All fields are required" });
         }
 
@@ -20,9 +18,7 @@ export const createPatient = async (req, res) => {
         // 🔹 Create a new patient
         const newPatient = new Patient({
             name,
-            email,
-            password,
-            dob,
+            age,
             gender,
             phone,
             doctor_id

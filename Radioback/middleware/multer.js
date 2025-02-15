@@ -1,12 +1,20 @@
 import multer from "multer";
-import { CloudinaryStorage } from "multer-storage-cloudinary";
-import cloudinary from "../config/cloudinary.js";
+// import path from "path";
+import fs from "fs";
 
-const storage = new CloudinaryStorage({
-    cloudinary: cloudinary,
-    params: {
-        folder: "medical_images", // Cloudinary folder name
-        allowed_formats: ["jpg", "png", "jpeg"], // Allowed formats
+// Ensure the uploads directory exists
+const uploadDir = "./uploads";
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+}
+
+// Multer storage configuration
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, "uploads/"); // Save files in the 'uploads' folder
+    },
+    filename: (req, file, cb) => {
+        cb(null, `${Date.now()}-${file.originalname}`); // Unique filename
     },
 });
 

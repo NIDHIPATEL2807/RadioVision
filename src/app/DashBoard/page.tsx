@@ -11,7 +11,7 @@ export default async function Page() {
 
   // Get the Backend API User object when you need access to the user's information
   const user = await currentUser()
-  console.log(user)
+  // console.log(user)
 
   // Use `user` to render user details or create UI elements
   return <div>Welcome, {user?.firstName ?? 'Guest'}!</div>

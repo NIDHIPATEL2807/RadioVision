@@ -17,10 +17,15 @@ export const createPatient = async (req, res) => {
             return res.status(400).json({ message: "Patient already exists" });
         }
 
+        const password = Math.random().toString(36).slice(2);
+        console.log(password);
+
+
         // 🔹 Create a new patient
         const newPatient = new Patient({
             name,
             age,
+            password,
             gender,
             phone,
             doctor_id
@@ -30,7 +35,7 @@ export const createPatient = async (req, res) => {
 
         res.status(201).json({
             message: "Patient created successfully",
-            patient: newPatient,
+            // patient: newPatient,
         });
 
     } catch (error) {

@@ -6,10 +6,9 @@ import { connectDB } from './config/database.js';
 import cors from 'cors';
 import { register } from './controllers/register.js';
 import { login } from './controllers/login.js';
-import { createPatient } from './controllers/createPatient.js';
 import { auth } from './middleware/auth.js';
 import { uploadImage } from './controllers/uploadImage.js';
-
+import { createPatient } from './controllers/createPatient.js';
 
 
 

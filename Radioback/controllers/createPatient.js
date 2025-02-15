@@ -1,8 +1,8 @@
-import Patient from "../models/Patient.model.js";
+import Patient from "../model/Patient.model.js";
 
 export const createPatient = async (req, res) => {
     try {
-        const { name, email, password, dob, gender, phone } = req.body;
+        const { name, dob, gender, phone } = req.body;
 
         // 🔹 Ensure the authenticated user (doctor) is creating the patient
         const doctor_id = req.user.id; // Extracted from JWT authentication

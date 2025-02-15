@@ -27,6 +27,5 @@ const MedicalImageSchema = mongoose.Schema({
         default: Date.now
     }       
 });
-
 const MedicalImage = mongoose.model('MedicalImage', MedicalImageSchema);
-export default MedicalImage;
+export default MedicalImage

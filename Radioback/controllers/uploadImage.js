@@ -1,5 +1,5 @@
-import MedicalImage from "../models/MedicalImage.model.js";
-import axios from "axios"; // To call Flask API
+import MedicalImage from "../model/MedicalImage.model.js";
+// import axios from "axios"; // To call Flask API
 
 export const uploadImage = async (req, res) => {
     try {
@@ -10,8 +10,8 @@ export const uploadImage = async (req, res) => {
         const { path } = req.file; // Cloudinary URL
 
         // 🔹 Step 1: Send Image URL to Flask API
-        const flaskAPI = "http://your-flask-api-url.com/process"; // Change to actual Flask API
-        const flaskResponse = await axios.post(flaskAPI, { image_url: path });
+        // const flaskAPI = "http://your-flask-api-url.com/process"; // Change to actual Flask API
+        // const flaskResponse = await axios.post(flaskAPI, { image_url: path });
 
         // 🔹 Step 2: Get Processed Data from Flask API
         const processedData = flaskResponse.data; // This depends on Flask response format

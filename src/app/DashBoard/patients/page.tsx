@@ -75,9 +75,9 @@ const Patients = () => {
                   <td className="p-3">{patient.age}</td>
                   <td className="p-3">{patient.gender}</td>
                   <td className="p-3 text-center">
-                    <button className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition">
+  <button className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition">
                       View More
-                    </button>
+  </button>
                   </td>
                 </tr>
               ))

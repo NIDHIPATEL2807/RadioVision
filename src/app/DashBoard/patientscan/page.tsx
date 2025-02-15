@@ -29,6 +29,16 @@ export default function PatientScan() {
     setAiAnalyses(analyses);
   };
 
+  const handleSaveData = () => {
+    const dataToSave = {
+      patient: patientData,
+      scans: selectedFiles,
+      analyses: aiAnalyses,
+    };
+    console.log("Saving data:", dataToSave);
+    alert("Patient scan data saved successfully!");
+  };
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setPatientData((prev) => ({ ...prev, [name]: value }));
@@ -38,7 +48,7 @@ export default function PatientScan() {
     <div className="flex justify-center items-center min-h-screen bg-white pt-12 pb-10">
       <div className="bg-white bg-opacity-80 backdrop-blur-md shadow-lg rounded-2xl p-8 w-full max-w-3xl border border-gray-200">
         
-        <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">🩺 Patient Scan & Analysis</h2>
+        <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">🩺 Add Patient Scan</h2>
         
         {/* Patient Form */}
         <div className="mb-6">
@@ -80,6 +90,15 @@ export default function PatientScan() {
           className="mt-6 w-full bg-red-600 text-white py-3 rounded-lg font-medium text-lg transition-all hover:bg-red-700 disabled:opacity-50"
         >
           🔍 Analyze Scans
+        </button>
+
+        {/* Save Data Button */}
+        <button
+          onClick={handleSaveData}
+          disabled={selectedFiles.length === 0 || aiAnalyses.length === 0}
+          className="mt-4 w-full bg-green-600 text-white py-3 rounded-lg font-medium text-lg transition-all hover:bg-green-700 disabled:opacity-50"
+        >
+          💾 Save Data
         </button>
       </div>
     </div>

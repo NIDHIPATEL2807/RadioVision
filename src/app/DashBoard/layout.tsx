@@ -26,17 +26,17 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
         <Link href="/" className="text-4xl font-bold text-white cursor-pointer"> <FaXRay className="w-14 h-14 text-white ml-20"/>RadioVision</Link>
 
         
-        <nav className="flex flex-col text-white text-xl gap-8 py-3 mt-4">
-          <Link href="/Dashboard/start-scan" className="flex items-center gap-2 hover:text-red-500">
+        <nav className="flex flex-col text-white text-xl gap-8 py-3 mt-4 ">
+          <Link href="/DashBoard/start-scan" className="flex items-center gap-2 p-2 pr-0 hover:text-red-500 hover:bg-red-100 hover:border-r-4 hover:border-red-500 rounded-r-lg transition-all ">
             <Scan className="w-6 h-6" /> Start Scan
           </Link>
-          <Link href="/Dashboard/patients" className="flex items-center gap-2 hover:text-red-500">
+          <Link href="/DashBoard/patients" className="flex items-center gap-2 p-2 pr-0 hover:text-red-500 hover:bg-red-100 hover:border-r-4 hover:border-red-500 rounded-r-lg transition-all">
             <Users className="w-6 h-6" /> My Patients
           </Link>
-          <Link href="/Dashboard/profile" className="flex items-center gap-2 hover:text-red-500">
+          <Link href="/DashBoard/profile" className="flex items-center gap-2 p-2 pr-0 hover:text-red-500 hover:bg-red-100 hover:border-r-4 hover:border-red-500 rounded-r-lg transition-all">
             <User className="w-6 h-6" /> My Profile
           </Link>
-          <Link href="/Dashboard/patientscan" className="flex items-center gap-2 hover:text-red-500 hover:bg-red-100 hover:border-r-2">
+          <Link href="/DashBoard/patientscan" className="flex items-center gap-2 p-2 pr-0 hover:text-red-500 hover:bg-red-100 hover:border-r-4 hover:border-red-500 rounded-r-lg transition-all">
             <User className="w-6 h-6" /> Patient Scan
           </Link>
         </nav>
@@ -47,7 +47,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
         {/* Navbar */}
         <header className="bg-red-600 p-4 flex justify-end items-center">
           <div className="flex items-center gap-4">
-            <span className="text-lg font-semibold">{doctorName}</span>
+            <span className="text-2xl text-white font-semibold">{doctorName}</span>
             <img src="/doctor.jpg" alt="Doctor" className="w-10 h-10 rounded-full border border-gray-300" />
           </div>
         </header>

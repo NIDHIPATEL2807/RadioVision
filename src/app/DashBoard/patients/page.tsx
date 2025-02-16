@@ -2,11 +2,14 @@
 import React, { useState, useEffect } from "react";
 import { Search } from "lucide-react";
 import axios from "axios";
+import Link from "next/link";
 
 interface Patient {
   name: string;
   age: number;
   gender: string;
+  disease: string;
+  tests: string;
 }
 
 const Patients = () => {
@@ -14,9 +17,17 @@ const Patients = () => {
   const [patientsList, setPatientsList] = useState<Patient[]>([]);
 
   useEffect(() => {
+    // Mock data (Replace with API call when needed)
+    const mockPatients: Patient[] = [
+      { name: "John Doe", age: 45, gender: "Male", disease: "Diabetes", tests: "Blood Sugar, HbA1c" },
+    ];
+    setPatientsList(mockPatients);
+
+    // Uncomment when using API:
+    /*
     const fetchPatients = async () => {
       try {
-        const token = localStorage.getItem('token'); // Assuming the token is stored in localStorage
+        const token = localStorage.getItem('token');
         const response = await axios.get("http://127.0.0.1:8000/getPatients", {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -27,8 +38,8 @@ const Patients = () => {
         console.error("Error fetching patients:", error);
       }
     };
-
     fetchPatients();
+    */
   }, []);
 
   const filteredPatients = patientsList.filter((patient) =>
@@ -53,12 +64,14 @@ const Patients = () => {
       </div>
 
       {/* Patients Table */}
-      <div className="w-full max-w-4xl bg-red-50 shadow-xl rounded-xl p-6">
+      <div className="w-full max-w-4xl bg-red-50 shadow-xl rounded-xl p-6 overflow-x-auto">
         <table className="w-full border-collapse">
           <thead>
             <tr className="bg-red-500 text-white">
               <th className="p-3 text-left">Patient Name</th>
-              <th className="p-3 text-left">Disease Type</th>
+              <th className="p-3 text-left">Age</th>
+              <th className="p-3 text-left">Gender</th>
+              <th className="p-3 text-left">Disease</th>
               <th className="p-3 text-left">Tests Done</th>
               <th className="p-3 text-center">Actions</th>
             </tr>
@@ -73,16 +86,22 @@ const Patients = () => {
                   <td className="p-3">{patient.name}</td>
                   <td className="p-3">{patient.age}</td>
                   <td className="p-3">{patient.gender}</td>
+                  <td className="p-3">{patient.disease}</td>
+                  <td className="p-3">{patient.tests}</td>
                   <td className="p-3 text-center">
-                    <button className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition">
-                      View More
-                    </button>
+                    
+
+                  <Link href="/DashBoard/patients/viewdata">
+  <button className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition">
+    View Details
+  </button>
+</Link>
                   </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan={4} className="p-4 text-center text-gray-500">
+                <td colSpan={6} className="p-4 text-center text-gray-500">
                   No matching patients found.
                 </td>
               </tr>

@@ -1,18 +1,35 @@
-
 'use client';
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Search } from "lucide-react";
+import axios from "axios";
+
+interface Patient {
+  name: string;
+  age: number;
+  gender: string;
+}
 
 const Patients = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [patientsList, setPatientsList] = useState<Patient[]>([]);
 
-  const patientsList = [
-    { name: "John Doe", disease: "Diabetes", tests: "MRI, Blood Test" },
-    { name: "Jane Smith", disease: "Hypertension", tests: "ECG, MRI" },
-    { name: "Alice Johnson", disease: "Arthritis", tests: "X-Ray, Blood Test" },
-    { name: "Michael Brown", disease: "Asthma", tests: "Lung Function Test" },
-    { name: "Emily Davis", disease: "Heart Disease", tests: "Echocardiogram" },
-  ];
+  useEffect(() => {
+    const fetchPatients = async () => {
+      try {
+        const token = localStorage.getItem('token'); // Assuming the token is stored in localStorage
+        const response = await axios.get("http://127.0.0.1:5000/getPatients", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setPatientsList(response.data);
+      } catch (error) {
+        console.error("Error fetching patients:", error);
+      }
+    };
+
+    fetchPatients();
+  }, []);
 
   const filteredPatients = patientsList.filter((patient) =>
     patient.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -32,7 +49,7 @@ const Patients = () => {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <Search className="absolute left-3 top-3  text-gray-500" size={20} />
+        <Search className="absolute left-3 top-3 text-gray-500" size={20} />
       </div>
 
       {/* Patients Table */}
@@ -42,7 +59,6 @@ const Patients = () => {
             <tr className="bg-red-500 text-white">
               <th className="p-3 text-left">Patient Name</th>
               <th className="p-3 text-left">Disease Type</th>
-              
               <th className="p-3 text-left">Tests Done</th>
               <th className="p-3 text-center">Actions</th>
             </tr>
@@ -55,8 +71,8 @@ const Patients = () => {
                   className="border-b border-red-200 hover:bg-red-100 transition"
                 >
                   <td className="p-3">{patient.name}</td>
-                  <td className="p-3">{patient.disease}</td>
-                  <td className="p-3">{patient.tests}</td>
+                  <td className="p-3">{patient.age}</td>
+                  <td className="p-3">{patient.gender}</td>
                   <td className="p-3 text-center">
                     <button className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition">
                       View More
@@ -78,4 +94,4 @@ const Patients = () => {
   );
 };
 
-export default Patients; 
+export default Patients;

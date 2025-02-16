@@ -1,5 +1,7 @@
 import MedicalImage from "../model/MedicalImage.model.js";
-// import axios from "axios"; // To call Flask API
+import axios from "axios";
+import FormData from "form-data";
+import fs from "fs";
 
 export const uploadImage = async (req, res) => {
     try {
@@ -7,29 +9,40 @@ export const uploadImage = async (req, res) => {
             return res.status(400).json({ message: "No file uploaded" });
         }
 
-        const { path } = req.file; // Cloudinary URL
+        const { path } = req.file; // Cloudinary URL (assuming multer or Cloudinary storage)
 
-        // 🔹 Step 1: Send Image URL to Flask API
-        // const flaskAPI = "http://your-flask-api-url.com/process"; // Change to actual Flask API
-        // const flaskResponse = await axios.post(flaskAPI, { image_url: path });
+        // 🔹 Step 1: Read Image File
+        const imageBuffer = fs.readFileSync(req.file.path);
 
-        // 🔹 Step 2: Get Processed Data from Flask API
-        const processedData = flaskResponse.data; // This depends on Flask response format
+        // 🔹 Step 2: Send Image File to Flask API
+        const flaskAPI = "http://127.0.0.1:5000/predict"; // Change to actual Flask API
+        const formData = new FormData();
+        formData.append("image", imageBuffer, {
+            filename: req.file.originalname, // Maintain original filename
+            contentType: req.file.mimetype
+        });
 
-        // 🔹 Step 3: Save Data in MongoDB
+        const flaskResponse = await axios.post(flaskAPI, formData, {
+            headers: { ...formData.getHeaders() }
+        });
+
+        // 🔹 Step 3: Get Processed Data from Flask API
+        const processedData = flaskResponse.data;
+
+        // 🔹 Step 4: Save Data in MongoDB
         const medicalImage = new MedicalImage({
-            original_url: path,
-            processed_url: processedData.processed_url || "", // If your Flask API returns a processed image
-            description: processedData.description || "", // Example field
+            original_url: path, // Cloudinary URL
+            disease: processedData.disease,
+            probability: processedData.probability
         });
 
         await medicalImage.save();
 
-        // 🔹 Step 4: Send Data to Frontend
+        // 🔹 Step 5: Send Data to Frontend
         res.status(201).json({
             message: "Image processed successfully",
             original_url: path,
-            processed_data: processedData, // Send all processed results to frontend
+            processed_data: processedData // Forward results from Flask API
         });
 
     } catch (error) {

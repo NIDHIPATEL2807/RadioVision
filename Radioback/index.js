@@ -44,5 +44,7 @@ app.get("/api/patients", auth, getPatients);
 
 app.get("/api/patients/:id", auth, getPatientsImages);
 
+app.post("/api/patients", auth, addPatientId);
+
 
 

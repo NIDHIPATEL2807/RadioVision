@@ -44,7 +44,7 @@ const SignIn: React.FC = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
-              <button type="submit" className="btn">Let's go!</button>
+              <button type="submit" className="btn bg-red-500 p-3 text-white">Let's go!</button>
             </form>
             {error && <p className="text-red-500 mt-4">{error}</p>}
           </div>

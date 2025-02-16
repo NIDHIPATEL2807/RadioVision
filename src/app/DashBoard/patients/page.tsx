@@ -17,7 +17,7 @@ const Patients = () => {
     const fetchPatients = async () => {
       try {
         const token = localStorage.getItem('token'); // Assuming the token is stored in localStorage
-        const response = await axios.get("http://127.0.0.1:5000/getPatients", {
+        const response = await axios.get("http://127.0.0.1:8000/getPatients", {
           headers: {
             Authorization: `Bearer ${token}`,
           },

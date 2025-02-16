@@ -8,11 +8,11 @@ const Footer: React.FC = () => {
     { name: "Nidhi Patel", link: "https://www.linkedin.com/in/nidhi-patel" },
     { name: "Arsalaan", link: "https://www.linkedin.com/in/arsalaan" },
     { name: "Hitesh", link: "https://www.linkedin.com/in/hitesh" },
-    { name: "Siddh", link: "https://www.linkedin.com/in/siddh" },
+    { name: "Viswesh", link: "https://www.linkedin.com/in/siddh" },
   ];
 
   return (
-    <footer className="bg-black text-white py-8 px-6">
+    <footer className="bg-gradient-to-b from-black via-black to-red-950 text-white py-8 px-6">
       {/* Main Content */}
       <div className="container mx-auto grid md:grid-cols-3 gap-6">
         {/* Logo Section */}

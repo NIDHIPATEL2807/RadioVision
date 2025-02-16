@@ -4,6 +4,7 @@ import BackgroundDots from "./BackgroundDots"; // Dotted background
 import Navbar from "./Navbar"; // Navbar for dark mode toggle
 import MediConnectCTA from "./MediConnectCTA";
 import TextRotate from "./TextRotate";
+import { FaXRay } from "react-icons/fa";
 
 const LandingPage = () => {
   const [isDark, setIsDark] = useState(true);
@@ -26,18 +27,19 @@ const LandingPage = () => {
       </div>
 
       {/* Main Content Centered (higher z-index) */}
-      <main className="container mx-auto px-14 py-32 z-10 text-center mt-24 relative">
-        <h1 className={`${isDark ? "text-white" : "text-black"} text-6xl font-extrabold leading-tight tracking-wide`}>
+      <main className="container mx-auto px-14 py-32  font-mono z-10 text-center mt-24 relative">
+        <h1 className={`${isDark ? "text-white" : "text-black"}   mb-7 font-mono text-5xl font-extrabold leading-tight tracking-wide`}>
           Empowering and Helping Radiologists with  
-          <br /> <span className="text-red-500 text-4xl"> <TextRotate/ ></span>
+          <br  /> 
+           <span className="text-red-500   text-6xl font-sans font-semibold"> <TextRotate/ ></span>
         </h1>
 
-        <p className={`mt-6 px-12 text-xl ${isDark ? "text-gray-400" : "text-gray-700"}`}>
+        <p className={`m-9 mt-10  px-14 text-xl ${isDark ? "text-gray-400" : "text-gray-700"}`}>
           Our AI-powered platform assists radiologists in detecting anomalies in MRI, CT scans, 
           and X-rays with unparalleled accuracy. Experience faster, smarter, and more reliable diagnostics.
         </p>
 
-        <button className="mt-8 px-8 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors shadow-lg shadow-red-500/30">
+        <button className="mt-4 px-8 py-3 text-lg font-bold bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors shadow-lg shadow-red-500/30">
           Start Scanning
         </button>
 

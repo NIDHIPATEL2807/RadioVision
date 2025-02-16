@@ -1,7 +1,8 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 
-const text = ['AI-driven Precision','AI-driven Precision','AI-driven Precision']
+const text = ["Detect Early", "Diagnose Faster", "Heal Better"];
+
 
 const TextRotate = () => {
   const [index, setIndex] = useState(0)
@@ -17,10 +18,10 @@ const TextRotate = () => {
   }, [])
 
   return (
-    <div className="relative flex w-full items-center justify-center py-4 text-center">
+    <div className="relative flex w-full items-center justify-center py-9 text-center">
       <AnimatePresence>
         <motion.div
-          className="absolute cursor-pointer text-6xl font-semibold tracking-tight text-red-500"
+          className="absolute cursor-pointer mt-4 text-6xl font-semibold tracking-tight text-red-500"
           key={index}
           initial={{ y: 20, opacity: 0, scale: 0.8 }}
           animate={{ y: 0, opacity: 1, scale: 1 }}

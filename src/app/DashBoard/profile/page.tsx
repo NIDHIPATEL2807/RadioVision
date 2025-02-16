@@ -1,88 +1,168 @@
-'use client';
-import { useState } from "react";
+import React from 'react';
+import { FaUserMd, FaMapMarkerAlt, FaEnvelope } from 'react-icons/fa';
+import { IoMdSchool } from 'react-icons/io';
+import { MdWork } from 'react-icons/md';
 
-type Patient = {
-  id: string;
-  name: string;
-  pastScans: string[];
-  aiReports: { diagnosis: string; confidence: string }[];
-  doctorComments: string;
-};
+interface DoctorProfileProps {
+  firstName: string;
+  lastName: string;
+  email: string;
+  state: string;
+  workload: number;
+  education: string;
+  description: string;
+}
 
-export default function PatientRecords() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [patientData, setPatientData] = useState<Patient | null>(null);
-  const [notes, setNotes] = useState("");
-
-  const patients: Patient[] = [
-    { id: "1001", name: "John Doe", pastScans: ["Scan1.png"], aiReports: [{ diagnosis: "Fracture detected", confidence: "90%" }], doctorComments: "Monitor progress" },
-    { id: "1002", name: "Jane Smith", pastScans: ["Scan2.png"], aiReports: [{ diagnosis: "No issues detected", confidence: "95%" }], doctorComments: "Routine check-up" },
-    { id: "1003", name: "Alice Johnson", pastScans: ["Scan3.png"], aiReports: [{ diagnosis: "Tumor detected", confidence: "85%" }], doctorComments: "Biopsy recommended" },
-    { id: "1004", name: "Bob Brown", pastScans: ["Scan4.png"], aiReports: [{ diagnosis: "Lung infection", confidence: "88%" }], doctorComments: "Prescribed antibiotics" },
-    { id: "1005", name: "Charlie Davis", pastScans: ["Scan5.png"], aiReports: [{ diagnosis: "Minor fracture", confidence: "80%" }], doctorComments: "Apply cast" },
-    { id: "1006", name: "David Lee", pastScans: ["Scan6.png"], aiReports: [{ diagnosis: "Heart abnormality", confidence: "75%" }], doctorComments: "Refer to cardiologist" },
-    { id: "1007", name: "Ella Wilson", pastScans: ["Scan7.png"], aiReports: [{ diagnosis: "No issues", confidence: "98%" }], doctorComments: "Regular follow-up" },
-    { id: "1008", name: "Frank Adams", pastScans: ["Scan8.png"], aiReports: [{ diagnosis: "Liver disorder", confidence: "85%" }], doctorComments: "Start medication" },
-    { id: "1009", name: "Grace Hall", pastScans: ["Scan9.png"], aiReports: [{ diagnosis: "Kidney stones", confidence: "90%" }], doctorComments: "Surgery recommended" },
-    { id: "1010", name: "Henry Clark", pastScans: ["Scan10.png"], aiReports: [{ diagnosis: "Brain hemorrhage", confidence: "70%" }], doctorComments: "Emergency attention required" },
-  ];
-
-  const handleSearch = () => {
-    const foundPatient = patients.find(
-      (p) => p.id === searchQuery || p.name.toLowerCase() === searchQuery.toLowerCase()
-    );
-    if (foundPatient) {
-      setPatientData(foundPatient);
-      setNotes(foundPatient.doctorComments);
-    } else {
-      setPatientData(null);
-    }
-  };
-
+const DoctorProfile = ({
+  firstName = "Nidhi",
+  lastName = "Patel",
+  email = "nidhipatelsprt@gmail.com",
+  state = "Andhra Pradesh",
+  workload = 74,
+  education = "Ph.D | MBBS | Delhi University",
+  description = "Demonstrated work in field of Physiology and more than 1k+ successful cases of patients!"
+}: DoctorProfileProps) => {
   return (
-    <div className="p-6 max-w-4xl mx-auto bg-red-50 min-h-screen flex flex-col items-center">
-      <h2 className="text-2xl font-semibold text-red-600 mb-4">Patient Records</h2>
-      <input
-        type="text"
-        placeholder="Search by Patient ID or Name"
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        className="p-2 border rounded-md w-full max-w-md mb-4"
-      />
-      <button onClick={handleSearch} className="px-4 py-2 bg-red-600 text-white rounded-md">
-        Search
-      </button>
-      {patientData && (
-        <div className="bg-white shadow-lg rounded-lg p-6 mt-6 w-full max-w-lg">
-          <h3 className="text-xl font-semibold text-red-600">{patientData.name}</h3>
-          <p><strong>ID:</strong> {patientData.id}</p>
-          <div className="mt-4">
-            <h4 className="font-semibold">Past Scans:</h4>
-            <div className="flex gap-2 mt-2">
-              {patientData.pastScans.map((scan, index) => (
-                <img key={index} src={scan} alt={`Scan ${index + 1}`} className="w-20 h-20 object-cover border" />
-              ))}
+    <div className="pb-10 max-w-6xl mx-20">
+      
+      <h2 className="text-4xl font-bold mt-5 mx-5  text-gray-800 mb-6">Doctor's Profile</h2>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Left Panel */}
+        <div className="bg-white rounded-lg shadow-md p-6">
+          <div className="flex flex-col items-center mb-6">
+            <div className="w-24 h-24 bg-red-500 rounded-full flex items-center justify-center mb-4">
+              <FaUserMd className="w-12 h-12 text-white" />
+            </div>
+            <h3 className="text-xl font-semibold text-gray-800">Dr. {firstName} {lastName}</h3>
+            <p className="text-gray-600">Physician</p>
+            <button className="mt-4 px-6 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors flex items-center gap-2">
+              <span>Follow</span>
+            </button>
+          </div>
+          
+          <div className="space-y-4">
+            <div className="mb-4">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-gray-600">Workload</span>
+                <span className="text-gray-600">{workload}%</span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-2">
+                <div 
+                  className="bg-red-500 rounded-full h-2" 
+                  style={{ width: `${workload}%` }}
+                />
+              </div>
+            </div>
+            
+            <div className="flex items-start gap-3">
+              <IoMdSchool className="w-5 h-5 text-gray-500 mt-1" />
+              <p className="text-gray-700">{education}</p>
+            </div>
+            
+            <div className="flex items-start gap-3">
+              <MdWork className="w-5 h-5 text-gray-500 mt-1" />
+              <p className="text-gray-700">{description}</p>
             </div>
           </div>
-          <div className="mt-4">
-            <h4 className="font-semibold">AI Reports:</h4>
-            {patientData.aiReports.map((report, index) => (
-              <p key={index}><strong>{report.diagnosis}</strong> ({report.confidence})</p>
-            ))}
+        </div>
+
+        {/* Right Panel */}
+        <div className="bg-white rounded-lg shadow-md p-6">
+          <h3 className="text-xl font-semibold text-gray-800 mb-6">Account Details</h3>
+          
+          <div className="grid grid-cols-2 gap-4 mb-4">
+            <div>
+              <label className="block text-gray-600 mb-2">First Name</label>
+              <input 
+                type="text" 
+                value={firstName}
+                className="w-full p-2 border rounded-md"
+                readOnly
+              />
+            </div>
+            <div>
+              <label className="block text-gray-600 mb-2">Last Name</label>
+              <input 
+                type="text" 
+                value={lastName}
+                className="w-full p-2 border rounded-md"
+                readOnly
+              />
+            </div>
           </div>
-          <div className="mt-4">
-            <h4 className="font-semibold">Doctor's Comments:</h4>
-            <textarea
+
+          <div className="grid grid-cols-2 gap-4 mb-4">
+            <div>
+              <label className="block text-gray-600 mb-2">Email</label>
+              <div className="flex items-center gap-2 p-2 border rounded-md bg-gray-50">
+                <FaEnvelope className="text-gray-500" />
+                <span className="text-gray-700">{email}</span>
+              </div>
+            </div>
+            <div>
+              <label className="block text-gray-600 mb-2">Password</label>
+              <input 
+                type="password" 
+                value="••••••••••••"
+                className="w-full p-2 border rounded-md"
+                readOnly
+              />
+            </div>
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-gray-600 mb-2">Address</label>
+            <input 
+              type="text" 
+              placeholder="Add Your Work Address Here"
               className="w-full p-2 border rounded-md"
-              value={notes}
-              onChange={(e) => setNotes(e.target.value)}
             />
           </div>
-          <button className="mt-4 px-4 py-2 bg-red-600 text-white rounded-md">
-            Save Updates
+
+          <div className="grid grid-cols-3 gap-4 mb-6">
+            <div>
+              <label className="block text-gray-600 mb-2">City</label>
+              <input 
+                type="text" 
+                placeholder="Add Your City Here"
+                className="w-full p-2 border rounded-md"
+              />
+            </div>
+            <div>
+              <label className="block text-gray-600 mb-2">State</label>
+              <input 
+                type="text" 
+                value={state}
+                className="w-full p-2 border rounded-md"
+                readOnly
+              />
+            </div>
+            <div>
+              <label className="block text-gray-600 mb-2">Zip</label>
+              <input 
+                type="text" 
+                placeholder="Your Pin Code"
+                className="w-full p-2 border rounded-md"
+              />
+            </div>
+          </div>
+
+          <div className="mb-6">
+            <label className="block text-gray-600 mb-2">Description</label>
+            <textarea 
+              className="w-full p-2 border rounded-md h-24"
+              placeholder="Add your description here..."
+            />
+          </div>
+
+          <button className="px-6 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors">
+            Update Account
           </button>
         </div>
-      )}
+      </div>
     </div>
   );
-}
+};
+
+export default DoctorProfile;
